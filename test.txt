@@ -1,0 +1,130 @@
+
+#43508839XiaoweiLiuTHQ1#
+
+Q1
+
+#function of Fibonacci sequence#
+
+#design Fibonacci sequence as a function of n #
+fibNo <- function(n) {
+         No1 <- 1 #define 1st and 2nd numbers#
+         No2 <- 1
+         #design Fibonacci sequence as a function of n #
+         for(i in 1:n){
+         if(i==1){
+         print(No1)
+         }
+         else if(i==2) {
+           print(No2)}
+         else{ 
+             No3=No1+No2 #loop calculation
+             print(No3)
+             No1=No2
+             No2=No3  }  #repeated calculation#
+           }
+         }
+fibNo(10) #call function n=10, n can be any number
+
+
+#Q3#
+
+#a, read file#
+setwd("e:/890/quiz1")
+dataset<-read.csv("PersonenSchaden.csv", header=T, na.strings =c("NA","N","0"))
+names(dataset)
+attach(dataset)
+summary(dataset)
+
+#b, get statistical summary of variable total#
+summary(total)
+sd(total)
+var(total)
+
+#c, histogram of claim amounts with self designed axis for a clear repersentation#
+#2 plots are produced to see details#
+options(digits=0)
+hist(total, main="Histogram of Claim Amounts", axes=FALSE, breaks=100, xlim=c(0,4485797),xlab="$ Total Claim")
+Axis(side = 1, at = c(1000000,2000000,3000000,4000000), labels = c("1000000","2000000","3000000","4000000"))
+hist(total, main="Histogram of Claim Amounts < $500000", xaxt="n", breaks=1000, xlim=c(0,500000),xlab="$ Total Claim")
+Axis(side = 1, at = c(0,100000,200000,300000,400000,500000), labels = c("","100000","200000","300000","400000","500000"))
+
+#d, histogram of delay#
+#derive delay variable by final month - report month#
+dataset$delay<-dataset$finmonth-dataset$repmonth
+hist(dataset$delay, main="Histogram of Settlement Delay")
+#embedded a density curve#
+par(new=TRUE)
+d <- density(dataset$delay)
+plot(d,main="",bty="l", axes=F, lwd=2, col="blue", xlab="n",ylab="n") 
+
+#e, histogram of legal representation#
+#calculation of proportions#
+legrep<-as.factor(as.character(legrep))
+summary(legrep)
+legrep<-as.numeric(as.character(legrep))
+#hisotogram with self designed axis as the requirements#
+hist(legrep, main="Histogram of Legal Representation",   axes=F,breaks=2, xlab="legal Representation", ylab="% of Toal Claim")
+Axis(side = 1, at = c(0,0.25,0.75,1), labels = c("","No","Yes",""))
+Axis(side = 2, at = c(0,8008,14028), labels = c("","36%","64%"))
+
+
+#f, histogram of injury 1#
+#calculation of proportions#
+inj1<-as.factor(as.character(inj1))
+summary(inj1)
+15638/length(inj1)
+3376/length(inj1)
+1133/length(inj1)
+189/length(inj1)
+188/length(inj1)
+256/length(inj1)
+1256/length(inj1)
+inj1<-as.numeric(as.character(inj1))
+length(inj1)
+22036*0.05
+22036*0.01
+22036*0.1
+#histogram of injury 1 with self designed axis as the requirements#
+hist(inj1, main="Histogram of Injury 1 Severity level",   axes=F, xlab="Injury Severity Level", ylab="% of Toal Claim")
+Axis(side = 1, at = c(0,1.25,1.75,2.75,3.75,4.75,5.75,8.75,10), labels = c("","1","2","3","4","5","6","9",""))
+par(las = 1) #tickers are horizontal#
+Axis(side = 2, at = c(0,220,1102,2204,3376,15638), labels = c("","1%","5%","10%","15.32%","70.77%"))
+
+
+#h, hisogram of logarithm transformed claim amount#
+#transformation#
+dataset$logtotal<-log(total)
+#hisogram of logarithm transformed claim amount#
+hist(dataset$logtotal, main="Histogram of Log(claim)", xlab="log(claim$)")
+h<-rnorm(length(dataset$logtotal),mean(dataset$logtotal),sd(dataset$logtotal))
+par(new=TRUE)
+plot(density(dataset$logtotal, adjust=2), col="blue", lwd=2, axes=F, xlab="n",ylab="n", main="n")
+curve(density(dataset$logtotal, adjust=2), col="blue", lwd=2)
+
+#i, scatter plot of total and log total vs operational time#
+#scatter plot of total vs operational time#
+plot(dataset$op_time,dataset$total,xlab="Operational Time",ylab="Claim Size $",main="Scatter Plot of \n Claim size & Operational Time")
+#identify special points#
+identify(dataset$op_time,dataset$total,labels = dataset$total)
+dataset[c(17977,18870),]
+y<-which(dataset$total>2798362)
+y
+#scatter plot log total vs operational time
+plot(dataset$op_time,dataset$logtotal,xlab="Operational Time",ylab="log(Claim$)",main="Scatter Plot of \n log(Claim size)& Operational Time")
+#identify special points#
+identify(dataset$op_time,dataset$logtotal,labels = dataset$logtotal)
+dataset[19832,]
+y<-which(dataset$logtotal<47)
+y
+
+#k, histogram of log total vs operational time with legal representation as groups#
+#getting pachage lattice#
+library(lattice)
+xyplot(dataset$logtotal ~ dataset$op_time, data=dataset, groups = as.factor(as.character(dataset$legrep)), pch= 20, col=c("blue","red"),main="Scatter Plot of log(Claim size) & Operational Time \n in Legal Representation Groups",
+       key=list(points=list(pch=20, col=c("blue","red")), columns=2, text=list(c("No","Yes"))))
+
+
+
+
+
+
