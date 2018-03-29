@@ -42,13 +42,15 @@ var(total)
 
 #c, histogram of claim amounts with self designed axis for a clear repersentation#
 #2 plots are produced to see details#
-options(digits=0)
+options(digits=0) #to plot dollar values#
 hist(total, main="Histogram of Claim Amounts", axes=FALSE, breaks=100, xlim=c(0,4485797),xlab="$ Total Claim")
-Axis(side = 1, at = c(1000000,2000000,3000000,4000000), labels = c("1000000","2000000","3000000","4000000"))
+#change x-axis to show in numbers#
+Axis(side = 1, at = c(1000000,2000000,3000000,4000000), labels = c("1000000","2000000","3000000","4000000")) 
 hist(total, main="Histogram of Claim Amounts < $500000", xaxt="n", breaks=1000, xlim=c(0,500000),xlab="$ Total Claim")
+#change x-axis to show in numbers#
 Axis(side = 1, at = c(0,100000,200000,300000,400000,500000), labels = c("","100000","200000","300000","400000","500000"))
 
-#d, histogram of delay#
+#d, histogram of settlement delay#
 #derive delay variable by final month - report month#
 dataset$delay<-dataset$finmonth-dataset$repmonth
 hist(dataset$delay, main="Histogram of Settlement Delay")
@@ -62,7 +64,7 @@ plot(d,main="",bty="l", axes=F, lwd=2, col="blue", xlab="n",ylab="n")
 legrep<-as.factor(as.character(legrep))
 summary(legrep)
 legrep<-as.numeric(as.character(legrep))
-#hisotogram with self designed axis as the requirements#
+#hisotogram with self designed axis (%) as the question#
 hist(legrep, main="Histogram of Legal Representation",   axes=F,breaks=2, xlab="legal Representation", ylab="% of Toal Claim")
 Axis(side = 1, at = c(0,0.25,0.75,1), labels = c("","No","Yes",""))
 Axis(side = 2, at = c(0,8008,14028), labels = c("","36%","64%"))
@@ -84,7 +86,7 @@ length(inj1)
 22036*0.05
 22036*0.01
 22036*0.1
-#histogram of injury 1 with self designed axis as the requirements#
+#histogram of injury 1 with self designed axis (%) as the question#
 hist(inj1, main="Histogram of Injury 1 Severity level",   axes=F, xlab="Injury Severity Level", ylab="% of Toal Claim")
 Axis(side = 1, at = c(0,1.25,1.75,2.75,3.75,4.75,5.75,8.75,10), labels = c("","1","2","3","4","5","6","9",""))
 par(las = 1) #tickers are horizontal#
@@ -96,6 +98,7 @@ Axis(side = 2, at = c(0,220,1102,2204,3376,15638), labels = c("","1%","5%","10%"
 dataset$logtotal<-log(total)
 #hisogram of logarithm transformed claim amount#
 hist(dataset$logtotal, main="Histogram of Log(claim)", xlab="log(claim$)")
+#add a density curve for analysis#
 h<-rnorm(length(dataset$logtotal),mean(dataset$logtotal),sd(dataset$logtotal))
 par(new=TRUE)
 plot(density(dataset$logtotal, adjust=2), col="blue", lwd=2, axes=F, xlab="n",ylab="n", main="n")
@@ -120,6 +123,7 @@ y
 #k, histogram of log total vs operational time with legal representation as groups#
 #getting pachage lattice#
 library(lattice)
+#plotting#
 xyplot(dataset$logtotal ~ dataset$op_time, data=dataset, groups = as.factor(as.character(dataset$legrep)), pch= 20, col=c("blue","red"),main="Scatter Plot of log(Claim size) & Operational Time \n in Legal Representation Groups",
        key=list(points=list(pch=20, col=c("blue","red")), columns=2, text=list(c("No","Yes"))))
 
