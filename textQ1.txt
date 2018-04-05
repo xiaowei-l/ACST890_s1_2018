@@ -1,0 +1,128 @@
+#olq1 ACST890 Xiaowei Liu 43508839#
+
+#Q2#
+#example1#
+#!/bin/bash
+# creating a new bash file e1.sh
+
+
+echo "Positional parameter \$0 is $0"
+#to print "Positional parameter $0 is ./e1.sh",
+
+declare -a y=2
+# Assign variable y with one element of 2
+
+for i in ${y}
+# all positional parameter of y
+
+do
+        echo "Positional parameter \$${#y[@]} is $i" #replace by actual value
+        y=$(expr $y + 1)
+
+done
+
+echo $y #print result
+
+
+#output#
+ubuntu@ip-172-31-25-56:~$ ./e1.sh
+Positional parameter $0 is ./e1.sh
+Positional parameter $1 is 2
+3
+#example2#
+#!/bin/bash
+# creating a new bash file e2.sh
+
+echo "Positional parameter \$0 is $0"
+#to print "Positional parameter $0 is ./e2.sh",
+
+declare -a z=3
+# Assign variable z with one element of 3
+
+for i in ${z}
+# all positional parameter of z
+
+do
+        echo "Positional parameter \$${#z[@]} is $i" #replace by actual value
+        z=$(expr $z + 1)
+
+done
+
+echo $z #print result
+
+#output#
+ubuntu@ip-172-31-25-56:~$ ^C
+ubuntu@ip-172-31-25-56:~$ ./e2.sh
+Positional parameter $0 is ./e2.sh
+Positional parameter $1 is 3
+4
+
+
+#example 3#
+#!/bin/bash
+# creating a new bash file e3.sh
+
+
+echo "Positional parameter \$0 is $0"
+#to print "Positional parameter $0 is ./e3.sh",
+
+declare -a r=4
+# Assign variable r with one element of 3
+
+for i in ${r}
+# all positional parameter of r
+
+do
+        echo "Positional parameter \$${#r[@]} is $i" #replace by actual value
+        r=$(expr $r + 1)
+
+done
+
+echo $r #print result
+
+#output#
+ubuntu@ip-172-31-25-56:~$ ./e3.sh
+Positional parameter $0 is ./e3.sh
+Positional parameter $1 is 4
+5
+
+
+#Q3#
+#!/bin/bash
+#bash script: Fibonacci numbers, given n#
+#writer: Xiaowei Liu ACST890 2018#
+
+
+#print to invite  user to give a number#
+echo  "Please Enter a Number:"
+N=$1 # the number is positional parameter 1
+read N # reading order
+echo “Reading the Number...” #print to show the process of reading
+
+#preparing the loop calculations:
+#define the 1st 2 numbers
+a=1
+b=1
+
+#preparing to report the result:
+echo "The Fibonacci series of $N is: "
+
+#starting the loop calculation
+#range is (0.n), reporting each i
+for (( i=0; i<N; i++ ))
+do
+    echo -n "$a " #always print new line of first number, a.
+    c=$((a + b)) # the 3rd number = 1st + 2nd
+    a=$b # then moving ahead, a becoming old b
+    b=$c # b becoming the old c
+done #finished calculation
+
+echo #print results
+
+#output#
+ubuntu@ip-172-31-25-56:~$ ./Fibonacci.sh
+Please Enter a Number:
+6
+“Reading the Number...”
+The Fibonacci series of 6 is:
+1 1 2 3 5 8
