@@ -1,0 +1,38 @@
+#Xiaowei Liu/ 43508839/ Oq2
+# Q1 code
+#a)
+sed –n –e ‘/&#X2713/p’  -e '//=' foo.html 
+#b)
+sed –n –e ’50,100s/th/th class=”c”/gp’ -e '/th class="C"/=' foo.html
+#c)
+#There are many bash tools might do the task, the following is an simple example:
+sudo apt-get install wdiff # install “wdiff” bash tool
+wdiff -s  my book 20180430.txt my book 20180501.txt # compare the 2 files word by word
+#d) 
+sed –n  ‘100,200p’ my book 20180501.txt
+#e)
+cat –n my book 20180501.txt  | sed ‘100,200d’
+
+#Q2 code with explanations:
+
+#!/bin/bash
+# Q2 bash file
+
+#If the positional parameter in command not including list file and both directory, it will print reminding message and start again.
+
+if [ $# -lt 3 ]; then #if commmands are less than 4,the messages will be printed
+   echo "Please enter: the list file, source path and distance path"
+   echo "in order following the execution command, Try again!"
+
+   else #if there are enough commands it will start the process.
+       x=$(sed -n 's/\([a-z].*\)/ACST890_s1_2018_\1.txt/p' $1)
+       #reading the list file and edit the names, also make them a variable.
+       for i in x; do #recursively
+       cp -r $2/$x  $3; #copy the files from the source path to the distance path provided.
+       echo "Files copied to distance the directory: "
+       echo $x #print out files copied
+       done
+   exit
+
+
+fi # all finished.
