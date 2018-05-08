@@ -1,0 +1,107 @@
+#assignment 1 codes
+
+#[Q1a.py]
+
+import sys
+import stdio
+
+stdio.write('Hi, ')
+stdio.write(sys.argv[1])
+stdio.writeln('. How are you?')
+
+#[Q1b.py]
+
+import sys
+import stdio
+
+a=int(sys.argv[1])
+b=int(sys.argv[2])
+
+total=a+b
+diff=a-b
+prod=a*b
+quot=a//b
+rem=a%b
+exp=a**b
+
+import stdio
+stdio.writeln(str(a)+'+'+str(b)+'='+str(total))
+stdio.writeln(str(a)+'-'+str(b)+'='+str(diff))
+stdio.writeln(str(a)+'*'+str(b)+'='+str(prod))
+stdio.writeln(str(a)+'//'+str(b)+'='+str(quot))
+stdio.writeln(str(a)+'%'+str(b)+'='+str(rem))
+stdio.writeln(str(a)+'**'+str(b)+'='+str(exp))
+
+#[Q2.py]
+
+#Q2 Simulation a fair coin Toss
+
+import random #for generate random numbers
+n = 100 #a simulation with size 100
+heads = 0 #set initial start point
+tails = 0
+
+
+for i in range(n):
+    outcome = random.randint(1,2)
+    #generate a random number between 1 and 2, 1 represent heads, 2 reprents tails.
+
+    if outcome == 1:
+        heads = heads + 1 #assign 1 as heads
+    else:
+        tails = tails + 1 #assign 2 as tails
+probH=heads/100#calculating probabilities.
+probT=tails/100
+
+#report results.
+print ('There are %d Heads and %d Tails.' %(heads, tails))
+print ('The probability for Heads is %.2f in this simulation,' %(probH))
+print ('for Tails it is %.2f ' %(probT))
+
+#[Q3.py]
+
+#Q3 tax liability
+
+print ('---- Tax Liablility Simulation ----')#title
+gross=float(input('Please provide the gross income: ')) #entre income
+
+if gross != int(gross): #reminding that it has to be integer
+    print ('Please provide the gross income in whole dollars (integer), try again!')
+else:
+    if gross <= 18200: #calculate income at tier 1 tax
+       tax=0
+    elif gross <=37000: #calculate income at tier 2 tax
+       tax=0.19*(gross-18200)
+    elif gross <=87000: #calculate income at tier 3 tax
+       tax=3572+ 0.325*(gross-37000)
+    elif gross <=180000:#calculate income at tier 4 tax
+       tax=19822+0.37*(gross-87000)
+    else:#calculate income at tier 5 tax
+       tax=54532+0.45*(gross-180000)
+    print ('Tax Liability = $', tax)#report tax liability
+    print ('After Tax Income = $', gross-tax)#report after tax income
+
+#[Q4.py]
+
+#Q4 Fibonacci Sequnce
+
+print ('---- Fibonacci Sequnce ----') #title
+num=float(input('Please entre a positive integer number: '))#request a number
+
+if num !=int(num): #specify it has to a an integer.
+          print ('Please provide an iteger, try again!')
+else:
+          num=int(num)
+          if num <=0: #specify it has to be a positive.
+                print ('Please provide a positive integer, try again!')
+          elif num >93:#specify it is better <=94 and explanation for reason.
+                print ('please provide a positive integer with a maximu at 93, try again!')
+                print ('As possible integer overflow.(representation problem in system)')
+          else:
+                feb = [1,1]#define the first 2 numbers
+                for i in range(num-2):
+                    feb.append(feb[-1] + feb[-2]) #append the new at end as a loop
+                print ('The Fibonacci Sequnce for %d is:' %(num)) #report results
+                print (feb)
+
+
